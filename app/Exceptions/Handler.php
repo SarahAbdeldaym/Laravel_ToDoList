@@ -55,11 +55,19 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof ValidationException) {
             $httpStatusCode = Response::HTTP_UNPROCESSABLE_ENTITY;
+            return response()->json([
+                'status' => false,
+                'errors' => $e->validator->errors()->messages()
+            ], $httpStatusCode);
+        }
+
+        if ($e instanceof EntityNotFoundException) {
+            $httpStatusCode = Response::HTTP_NOT_FOUND;
         }
 
         return response()->json([
             'status' => false,
-            'errors' => $e->validator->errors()->messages()
+            'errors' => $e->getMessage()
         ], $httpStatusCode);
     }
 }

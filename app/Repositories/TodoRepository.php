@@ -19,5 +19,19 @@ class TodoRepository {
         return $todo;
     }
 
+    public function findTodo(int $todoId) {
+        return Todo::find($todoId);
+    }
+
+    public function updateTodo(Todo $todo, ?string $title,?string $body,){
+        if (!is_null($title)) {
+            $todo->title=$title;
+        }
+        if (!is_null($body)) {
+            $todo->body=$body;
+        }
+        $todo->save();
+        return $todo;
+    }
 
 }

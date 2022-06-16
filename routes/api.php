@@ -18,6 +18,8 @@ Route::group([ 'prefix' => 'todos' ], function() {
 
     Route::get('', [ 'uses' => TodoController::class.'@getTodos' ]);
 
-    Route::post('', ['uses' => TodoController::class.'@createTodo' ]);    
+    Route::post('', ['uses' => TodoController::class.'@createTodo' ]);  
+
+    Route::put('{todoId}', ['uses' => TodoController::class.'@updateTodo' ]);   
     
 });
