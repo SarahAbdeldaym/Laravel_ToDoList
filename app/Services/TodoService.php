@@ -13,4 +13,8 @@ class TodoService {
     public function getTodos(){
         return $this->todoRepository->getTodos(config('app.recordsPerPage'));
     }
+
+    public function createTodo(string $title,string $body){
+        return $this->todoRepository->createTodo($title,$body);
+    }
 }

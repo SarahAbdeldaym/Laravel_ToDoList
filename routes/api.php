@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\TodoController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([ 'prefix' => 'todos' ], function() {
 
     Route::get('', [ 'uses' => TodoController::class.'@getTodos' ]);
-    
 
+    Route::post('', ['uses' => TodoController::class.'@createTodo' ]);    
+    
 });
