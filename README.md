@@ -2,6 +2,7 @@
 
 - [To Do List](#to-do-list)
   - [Preparing the project](#preparing-the-project)
+  - [Install required packages](#install-required-packages)
     - [Database Creaton](#database-creaton)
 
 ---
@@ -9,6 +10,12 @@
 ---
 
 ## Preparing the project
+
+## Install required packages
+
+```bash
+composer install
+```
 
 ### Database Creaton
 
