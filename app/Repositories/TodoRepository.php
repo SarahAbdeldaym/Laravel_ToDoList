@@ -23,7 +23,7 @@ class TodoRepository {
         return Todo::find($todoId);
     }
 
-    public function updateTodo(Todo $todo, ?string $title,?string $body,){
+    public function updateTodo(Todo $todo, ?string $title,?string $body){
         if (!is_null($title)) {
             $todo->title=$title;
         }
@@ -32,6 +32,10 @@ class TodoRepository {
         }
         $todo->save();
         return $todo;
+    }
+
+    public function deleteTodo(int $todoId){
+         Todo::find($todoId)->delete();
     }
 
 }

@@ -48,4 +48,15 @@ class TodoController extends Controller
         ]);
     }
 
+    public function deleteTodo(int $todoId){
+        $this->todoService->deleteTodo(
+            $todoId
+        );
+
+        return response()->json([
+            'status' => true,
+            'data' => true
+        ]);
+    }
+    
 }

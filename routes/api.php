@@ -22,4 +22,5 @@ Route::group([ 'prefix' => 'todos' ], function() {
 
     Route::put('{todoId}', ['uses' => TodoController::class.'@updateTodo' ]);   
     
+    Route::delete('{todoId}', ['uses' => TodoController::class.'@deleteTodo' ]);  
 });

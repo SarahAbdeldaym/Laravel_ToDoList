@@ -26,6 +26,11 @@ class TodoService {
         return $this->todoRepository->updateTodo($todo, $title,$body);
     }
 
+    public function deleteTodo(int $todoId){
+        $this->findTodo($todoId);
+        return $this->todoRepository->deleteTodo($todoId);
+    } 
+
     public function findTodo(int $todoId) {
         $todo = $this->todoRepository->findTodo($todoId);
 
