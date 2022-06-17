@@ -38,4 +38,10 @@ class TodoRepository {
          Todo::find($todoId)->delete();
     }
 
+    public function markTodoAsDone(Todo $todo){
+        $todo->is_done=true;
+        $todo->save();
+        return $todo;
+    }
+
 }

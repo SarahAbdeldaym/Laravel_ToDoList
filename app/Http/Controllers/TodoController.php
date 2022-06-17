@@ -58,5 +58,18 @@ class TodoController extends Controller
             'data' => true
         ]);
     }
+
+    public function markTodoAsDone(int $todoId){
+        $todo = $this->todoService->markTodoAsDone(
+            $todoId
+        );
+
+        return response()->json([
+            'status' => true,
+            'data' => $todo
+        ]);
+    }
+
+    
     
 }
