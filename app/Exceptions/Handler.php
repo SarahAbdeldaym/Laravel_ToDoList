@@ -65,6 +65,10 @@ class Handler extends ExceptionHandler
             $httpStatusCode = Response::HTTP_NOT_FOUND;
         }
 
+        if ($e instanceof InvalidUserCredentialsException) {
+            $httpStatusCode = Response::HTTP_UNAUTHORIZED;
+        }
+
         return response()->json([
             'status' => false,
             'errors' => $e->getMessage()
