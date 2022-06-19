@@ -51,4 +51,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
+
+    public function todos()
+    {
+        return $this->hasMany('App\Models\Todo');
+    }
 }

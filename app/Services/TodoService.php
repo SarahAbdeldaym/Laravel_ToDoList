@@ -17,20 +17,20 @@ class TodoService {
         return $this->todoRepository->getTodos(config('app.recordsPerPage'));
     }
 
-    public function createTodo(string $title,string $body){
-        return $this->todoRepository->createTodo($title,$body);
+    public function createTodo(string $title,string $body,int $user_id){
+        return $this->todoRepository->createTodo($title,$body,$user_id);
     }
-    
-    public function updateTodo(int $todoId, ?string $title,?string $body){
+
+    public function updateTodo(int $todoId, ?string $title,?string $body,?int $user_id){
         $todo = $this->findTodo($todoId);
 
-        return $this->todoRepository->updateTodo($todo, $title,$body);
+        return $this->todoRepository->updateTodo($todo, $title,$body,$user_id);
     }
 
     public function deleteTodo(int $todoId){
         $this->findTodo($todoId);
         return $this->todoRepository->deleteTodo($todoId);
-    } 
+    }
 
     public function markTodoAsDone(int $todoId){
         $todo = $this->findTodo($todoId);
@@ -40,7 +40,7 @@ class TodoService {
         }
 
         return $this->todoRepository->markTodoAsDone($todo);
-    } 
+    }
 
     public function findTodo(int $todoId) {
         $todo = $this->todoRepository->findTodo($todoId);
