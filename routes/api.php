@@ -23,15 +23,20 @@ Route::controller(UserController::class)->prefix('users')->group(function() {
 
 });
 
-Route::group([ 'prefix' => 'todos' ], function() {
+Route::controller(TodoController::class)->prefix('todos')->group(function() {
 
-    Route::get('', [ 'uses' => TodoController::class.'@getTodos' ]);
+    Route::get('', 'getTodos');
 
-    Route::post('', ['uses' => TodoController::class.'@createTodo' ]);
+    Route::post('', 'createTodo');
 
-    Route::put('{todoId}', ['uses' => TodoController::class.'@updateTodo' ]);
+    Route::prefix('{todoId}')->group(function() {
 
-    Route::delete('{todoId}', ['uses' => TodoController::class.'@deleteTodo' ]);
+        Route::put('', 'updateTodo');
 
-    Route::post('{todoId}/mark-as-done', ['uses' => TodoController::class.'@markTodoAsDone' ]);
+        Route::delete('', 'deleteTodo');
+
+        Route::post('mark-as-done', 'markTodoAsDone');
+
+    });
+
 });
