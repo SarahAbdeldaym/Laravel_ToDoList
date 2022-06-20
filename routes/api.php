@@ -37,6 +37,8 @@ Route::controller(TodoController::class)->prefix('todos')->group(function() {
 
         Route::post('mark-as-done', 'markTodoAsDone');
 
+        Route::post('reopen', 'reopenTodo');
+
     });
 
 });

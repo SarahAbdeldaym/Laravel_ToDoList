@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -51,23 +53,27 @@ class Handler extends ExceptionHandler
     }
 
     public function render($request, Throwable $e){
-        $httpStatusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-
         if ($e instanceof ValidationException) {
-            $httpStatusCode = Response::HTTP_UNPROCESSABLE_ENTITY;
             return response()->json([
                 'status' => false,
                 'errors' => $e->validator->errors()->messages()
-            ], $httpStatusCode);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        if ($e instanceof EntityNotFoundException) {
-            $httpStatusCode = Response::HTTP_NOT_FOUND;
+        if ($e instanceof NotFoundHttpException) {
+            return response()->json([
+                'status' => false,
+                'errors' => 'Route not found'
+            ], Response::HTTP_NOT_FOUND);
         }
 
-        if ($e instanceof InvalidUserCredentialsException) {
-            $httpStatusCode = Response::HTTP_UNAUTHORIZED;
-        }
+        $httpStatusCode = match (get_class($e)) {
+            RouteNotFoundException::class => Response::HTTP_NOT_FOUND,
+            EntityNotFoundException::class => Response::HTTP_NOT_FOUND,
+            InvalidUserCredentialsException::class => Response::HTTP_UNAUTHORIZED,
+            TodoAlreadyDoneException::class, TodoAlreadyOpenedException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
+            default => Response::HTTP_INTERNAL_SERVER_ERROR
+        };
 
         return response()->json([
             'status' => false,

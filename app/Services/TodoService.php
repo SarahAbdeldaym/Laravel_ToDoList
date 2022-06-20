@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\TodoAlreadyDoneException;
+use App\Exceptions\TodoAlreadyOpenedException;
 use App\Models\Todo;
 use App\Repositories\TodoRepository;
 
@@ -40,6 +41,16 @@ class TodoService {
         }
 
         return $this->todoRepository->markTodoAsDone($todo);
+    }
+
+    public function reopenTodo(int $todoId){
+        $todo = $this->findTodo($todoId);
+
+        if (!$todo->is_done) {
+            throw new TodoAlreadyOpenedException($todo->title);
+        }
+
+        return $this->todoRepository->reopenTodo($todo);
     }
 
     public function findTodo(int $todoId) {

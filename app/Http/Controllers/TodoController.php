@@ -10,11 +10,12 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
 
-    public function __construct(
-        private TodoService $todoService
-    ) {}
+    public function __construct(private TodoService $todoService)
+    {
+    }
 
-    public function getTodos(){
+    public function getTodos()
+    {
         $todos = $this->todoService->getTodos();
 
         return response()->json([
@@ -23,7 +24,8 @@ class TodoController extends Controller
         ]);
     }
 
-    public function createTodo(CreateTodoRequest $request){
+    public function createTodo(CreateTodoRequest $request)
+    {
         $todo = $this->todoService->createTodo(
             $request->input("title"),
             $request->input("body"),
@@ -36,7 +38,8 @@ class TodoController extends Controller
         ]);
     }
 
-    public function updateTodo(UpdateTodoRequest $request, int $todoId){
+    public function updateTodo(UpdateTodoRequest $request, int $todoId)
+    {
         $todo = $this->todoService->updateTodo(
             $todoId,
             $request->input("title"),
@@ -50,7 +53,8 @@ class TodoController extends Controller
         ]);
     }
 
-    public function deleteTodo(int $todoId){
+    public function deleteTodo(int $todoId)
+    {
         $this->todoService->deleteTodo(
             $todoId
         );
@@ -61,7 +65,8 @@ class TodoController extends Controller
         ]);
     }
 
-    public function markTodoAsDone(int $todoId){
+    public function markTodoAsDone(int $todoId)
+    {
         $todo = $this->todoService->markTodoAsDone(
             $todoId
         );
@@ -72,6 +77,14 @@ class TodoController extends Controller
         ]);
     }
 
+    public function reopenTodo(int $todoId) {
+        $todo = $this->todoService->reopenTodo(
+            $todoId
+        );
 
-
+        return response()->json([
+            'status' => true,
+            'data' => $todo
+        ]);
+    }
 }
