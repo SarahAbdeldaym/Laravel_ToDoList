@@ -7,9 +7,9 @@ use App\Models\Todo;
 class TodoRepository
 {
 
-    public function getTodos(int $recordsPerPage = 20)
+    public function getTodos(int $userId, int $recordsPerPage = 20)
     {
-        return Todo::with('user')->paginate($recordsPerPage);
+        return Todo::where('user_id', $userId)->with('user')->paginate($recordsPerPage);
     }
 
     public function createTodo(string $title, string $body, int $user_id)
@@ -28,17 +28,13 @@ class TodoRepository
         return Todo::find($todoId);
     }
 
-    public function updateTodo(Todo $todo, ?string $title, ?string $body, ?int $user_id)
+    public function updateTodo(Todo $todo, ?string $title, ?string $body)
     {
         if (!is_null($title)) {
             $todo->title = $title;
         }
         if (!is_null($body)) {
             $todo->body = $body;
-        }
-
-        if (!is_null($user_id)) {
-            $todo->user_id = $user_id;
         }
 
         $todo->save();

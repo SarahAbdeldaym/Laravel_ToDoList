@@ -5,7 +5,10 @@ namespace App\Services;
 use App\Exceptions\EmailAlreadyExistsException;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\InvalidUserCredentialsException;
+use App\Exceptions\UserNotAuthenticatedException;
+use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -38,5 +41,15 @@ class UserService {
         }
 
         return JWTAuth::fromUser($user);
+    }
+
+    public function getLoggedInUser(): User {
+        $user = Auth::user();
+
+        if (is_null($user)) {
+            throw new UserNotAuthenticatedException();
+        }
+
+        return $user;
     }
 }

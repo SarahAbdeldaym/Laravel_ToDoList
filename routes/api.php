@@ -25,7 +25,7 @@ Route::controller(UserController::class)->prefix('users')->group(function() {
 
 });
 
-Route::controller(TodoController::class)->prefix('todos')->group(function() {
+Route::controller(TodoController::class)->prefix('todos')->middleware('auth:api')->group(function() {
 
     Route::get('', 'getTodos');
 

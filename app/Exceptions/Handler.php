@@ -69,9 +69,16 @@ class Handler extends ExceptionHandler
 
         $httpStatusCode = match (get_class($e)) {
             RouteNotFoundException::class => Response::HTTP_NOT_FOUND,
+
             EntityNotFoundException::class => Response::HTTP_NOT_FOUND,
-            InvalidUserCredentialsException::class => Response::HTTP_UNAUTHORIZED,
-            TodoAlreadyDoneException::class, TodoAlreadyOpenedException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
+
+            InvalidUserCredentialsException::class,
+            UserNotAuthenticatedException::class,
+            UnauthorizedException::class => Response::HTTP_UNAUTHORIZED,
+
+            TodoAlreadyDoneException::class,
+            TodoAlreadyOpenedException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
+
             default => Response::HTTP_INTERNAL_SERVER_ERROR
         };
 

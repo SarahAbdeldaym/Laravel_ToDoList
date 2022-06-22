@@ -28,8 +28,7 @@ class TodoController extends Controller
     {
         $todo = $this->todoService->createTodo(
             $request->input("title"),
-            $request->input("body"),
-            $request->input("user_id")
+            $request->input("body")
         );
 
         return response()->json([
@@ -43,8 +42,7 @@ class TodoController extends Controller
         $todo = $this->todoService->updateTodo(
             $todoId,
             $request->input("title"),
-            $request->input("body"),
-            $request->input("user_id")
+            $request->input("body")
         );
 
         return response()->json([
