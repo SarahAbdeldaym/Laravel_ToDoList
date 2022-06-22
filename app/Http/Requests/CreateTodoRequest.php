@@ -9,8 +9,7 @@ class CreateTodoRequest extends FormRequest {
     public function rules() {
         return [
             'title' => [ 'required' ],
-            'body' => [ 'required' ],
-            'user_id'=>['required','integer','exists:users,id']
+            'body' => [ 'required' ]
         ];
     }
 }
