@@ -10,7 +10,6 @@ class UpdateTodoRequest extends FormRequest {
         return [
             'title' => [ 'nullable', 'min:1' ],
             'body' => [ 'nullable', 'min:1' ],
-            'user_id'=>['nullable', 'integer','exists:users,id']
         ];
     }
 }
