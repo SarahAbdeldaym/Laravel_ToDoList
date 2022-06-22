@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\SignupUserRequest;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
 
@@ -32,6 +33,13 @@ class UserController extends Controller {
         return response()->json([
             'status' => true,
             'data' => $token
+        ]);
+    }
+
+    public function getUserProfile() {
+        return response()->json([
+            'status' => true,
+            'data' => Auth::user()
         ]);
     }
 

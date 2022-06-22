@@ -21,6 +21,8 @@ Route::controller(UserController::class)->prefix('users')->group(function() {
 
     Route::post('login', 'login');
 
+    Route::get('me', 'getUserProfile')->middleware('auth:api');
+
 });
 
 Route::controller(TodoController::class)->prefix('todos')->group(function() {
